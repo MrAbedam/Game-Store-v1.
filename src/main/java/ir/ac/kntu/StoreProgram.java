@@ -53,6 +53,8 @@ public class StoreProgram {
                     }
                 }
             }
+            System.out.println("Welcome to Admin's main page.");
+            AdminMainPage.displayAdminPage();
         }else {
             tryInputAgain();
             String ans = sc.nextLine();
