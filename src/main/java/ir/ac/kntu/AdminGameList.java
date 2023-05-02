@@ -65,6 +65,7 @@ public class AdminGameList {
         int detailNumber = getInt();
         switch(detailNumber){
             case 1:{
+                System.out.println("Current name: "+game.getName());
                 System.out.println("Enter new name:");
                 String newName = getString();
                 game.setName(newName);
@@ -73,6 +74,7 @@ public class AdminGameList {
                 break;
             }
             case 2:{
+                System.out.println("Current description: "+game.getDescription());
                 System.out.println("Enter new description:");
                 String newDescription = getString();
                 game.setDescription(newDescription);
@@ -81,6 +83,7 @@ public class AdminGameList {
                 break;
             }
             case 3:{
+                System.out.println("Current genre: "+game.getGenre());
                 System.out.println("Enter new genre:");
                 String newGenre = getString();
                 game.setGenre(newGenre);
@@ -89,6 +92,7 @@ public class AdminGameList {
                 break;
             }
             case 4:{
+                System.out.println("Current price: "+game.getPrice());
                 System.out.println("Enter new price:");
                 double newPrice = getDouble();
                 game.setPrice(newPrice);

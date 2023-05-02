@@ -1,5 +1,6 @@
 package ir.ac.kntu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StoreProgram {
@@ -74,7 +75,17 @@ public class StoreProgram {
     }
 
     public static void main(String[] args) {
-
+        Game game1 = new Game("CoD: Advanced Warfare",
+                "Call of Duty: Advanced Warfare is a 2014 first-person shooter video game published by Activision.",
+                "Action fps-shooter",
+                59.99);
+        Game game2 = new Game("Dota2",
+                "Dota 2 is a 2013 multiplayer online battle arena video game by Valve. The game is a sequel to Defense of the Ancients," +
+                        "a community-created mod for Blizzard Entertainment's Warcraft III: Reign of Chaos.",
+                "Strategy Moba",
+                0.0);
+        AdminGameList.addGame(game1);
+        AdminGameList.addGame(game2);
         displayMenu();
     }
 }
