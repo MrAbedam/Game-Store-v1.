@@ -25,6 +25,7 @@ public class AdminMainPage {
         String ans = sc.nextLine();
         switch (ans){
             case "1":{
+                makeHashie();
                 AdminGameList.adminGameListMenu();
                 break;
             }

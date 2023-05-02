@@ -74,6 +74,7 @@ public class StoreProgram {
     }
 
     public static void main(String[] args) {
+
         displayMenu();
     }
 }
