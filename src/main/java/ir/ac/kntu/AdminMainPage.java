@@ -25,12 +25,16 @@ public class AdminMainPage {
         String ans = sc.nextLine();
         switch (ans){
             case "1":{
-                makeHashie();
                 AdminGameList.adminGameListMenu();
                 break;
             }
             case "2":{
                 adminUserList();
+                break;
+            }
+            default:{
+                System.out.println("Wrong input, redirecting to start of page.");
+                displayAdminPage();
                 break;
             }
         }

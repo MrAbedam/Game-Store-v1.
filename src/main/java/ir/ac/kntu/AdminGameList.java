@@ -1,5 +1,6 @@
 package ir.ac.kntu;
 
+import static ir.ac.kntu.StoreProgram.makeHashie;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,11 +26,20 @@ public class AdminGameList {
         this.listOfGames = listOfGames;
     }
 
+    public static void removeGame(Game game){
+        listOfGames.remove(game);
+        System.out.println("Game removed!");
+    }
+
     public static void adminGameListMenu(){
         Scanner sc = new Scanner(System.in);
+        System.out.println("Admins gameList page.");
         System.out.println("1.Add a game.");
         System.out.println("2.Change a game's details.");
         System.out.println("3.Remove a game.");
+        System.out.println("4.Show all of games.");
+        System.out.println("5.Return.");
+        makeHashie();
         String ans = getString();
         switch (ans){
             case "1":{
@@ -41,16 +51,53 @@ public class AdminGameList {
                 System.out.println("Enter game's name.");
                 String filterName = getString();
                 ArrayList<Game> filteredList = findGameByName(filterName);
-                int gameCounter = 1;
-                System.out.println("Choose a game between the filtered games:");
-                showGivenListOfGames(filteredList);
-                int gameChoice = getInt();
-                Game chosenGame = filteredList.get(gameChoice-1);
-                changeGameDetail(chosenGame);
+                if(filteredList.isEmpty()){
+                    System.out.println("No Games Matched. Enter anything to return to Admins gameList.");
+                    String tmp = getString();
+                    makeHashie();
+                    adminGameListMenu();
+                } else {
+                    System.out.println("Choose a game between the filtered games:");
+                    showGivenListOfGames(filteredList);
+                    int gameChoice = getInt();
+                    Game chosenGame = filteredList.get(gameChoice-1);
+                    changeGameDetail(chosenGame);
+                }
                 break;
             }
             case "3":{
+                System.out.println("Enter game's name.");
+                String filterName = getString();
+                ArrayList<Game> filteredList = findGameByName(filterName);
+                if(filteredList.isEmpty()){
+                    System.out.println("No Games Matched. Enter anything to return to Admins gameList.");
+                    String tmp = getString();
+                    makeHashie();
+                    adminGameListMenu();
+                } else {
+                    System.out.println("Choose a game between the filtered games:");
+                    showGivenListOfGames(filteredList);
+                    int gameChoice = getInt();
+                    Game chosenGame = filteredList.get((gameChoice-1)%filteredList.size());
+                    removeGame(chosenGame);
+                    adminGameListMenu();
+                }
+                break;
+            }
+            case "4":{
                 showGivenListOfGames(listOfGames);
+                System.out.println("Enter anything to return to Admins gameList.");
+                String tmp = getString();
+                makeHashie();
+                adminGameListMenu();
+                break;
+            }
+            case "5":{
+                AdminMainPage.displayAdminPage();
+            }
+            default:{
+                System.out.println("Wrong input, redirecting to start of page.");
+                adminGameListMenu();
                 break;
             }
         }
@@ -62,6 +109,7 @@ public class AdminGameList {
         System.out.println("3.Genre");
         System.out.println("4.Price");
         System.out.println("5.Return");
+        makeHashie();
         int detailNumber = getInt();
         switch(detailNumber){
             case 1:{
@@ -70,6 +118,7 @@ public class AdminGameList {
                 String newName = getString();
                 game.setName(newName);
                 System.out.println("Name changed!");
+                makeHashie();
                 changeGameDetail(game);
                 break;
             }
@@ -79,6 +128,7 @@ public class AdminGameList {
                 String newDescription = getString();
                 game.setDescription(newDescription);
                 System.out.println("Description changed!");
+                makeHashie();
                 changeGameDetail(game);
                 break;
             }
@@ -88,6 +138,7 @@ public class AdminGameList {
                 String newGenre = getString();
                 game.setGenre(newGenre);
                 System.out.println("Genre changed!");
+                makeHashie();
                 changeGameDetail(game);
                 break;
             }
@@ -97,11 +148,17 @@ public class AdminGameList {
                 double newPrice = getDouble();
                 game.setPrice(newPrice);
                 System.out.println("Price changed!");
+                makeHashie();
                 changeGameDetail(game);
                 break;
             }
             case 5:{
                 adminGameListMenu();
+                break;
+            }
+            default:{
+                System.out.println("Wrong input, redirecting to start of page.");
+                changeGameDetail(game);
                 break;
             }
         }
@@ -118,6 +175,7 @@ public class AdminGameList {
         Game newGame = new Game(gameName,gameDescription,gameGenre,gamePrice);
         addGame(newGame);
         System.out.println("Game added!");
+        makeHashie();
     }
     public static void addGame(Game game){
         listOfGames.add(game);

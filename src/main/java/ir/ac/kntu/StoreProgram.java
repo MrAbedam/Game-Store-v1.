@@ -1,7 +1,13 @@
 package ir.ac.kntu;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static ir.ac.kntu.Get.getString;
+import static ir.ac.kntu.Get.getDouble;
+import static ir.ac.kntu.Get.getInt;
+
 
 public class StoreProgram {
 
@@ -14,11 +20,42 @@ public class StoreProgram {
         System.out.println("1.Admin");
         System.out.println("2.User");
         makeHashie();
-        Scanner sc = new Scanner(System.in);
-        int ans = sc.nextInt();
+        int ans = getInt();
         switch ( ans ){
-            case 1:
+            case 1: {
                 adminLogIn();
+                break;
+            }
+            case 2:{
+                userChoices();
+                break;
+            }
+        default: {
+            System.out.println("Wrong input, redirecting to start of page.");
+            displayMenu();
+            break;
+            }
+        }
+    }
+
+    public static void userChoices() {
+        System.out.println("1.Log in");
+        System.out.println("2.Sign up");
+        System.out.println("3.Return");
+        String ans = getString();
+        switch (ans){
+            case "1":{
+                UserGetIn.userLogin();
+                break;
+            }
+            case "2":{
+                UserGetIn.userSignUp();
+                break;
+            }
+            case "3":{
+                displayMenu();
+                break;
+            }
         }
     }
 
