@@ -14,13 +14,13 @@ public class User {
 
     String email;
 
-    public User(String userName, String passWord, String email, String phoneNumber, ArrayList<Game> ownedGames, double wallet) {
+    public User(String userName, String passWord, String email, String phoneNumber, ArrayList<Game> ownedGames) {
         this.userName = userName;
         this.passWord = passWord;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.ownedGames = ownedGames;
-        this.wallet = wallet;
+        this.wallet = 0;
     }
 
     String phoneNumber;
@@ -84,10 +84,11 @@ public class User {
         System.out.println("Password: " + getPassWord());
         System.out.println("Email: " + getEmail());
         System.out.println("Wallet: " + getWallet() + "$");
-        System.out.println("Phone number " + getPhoneNumber());
+        System.out.println("Phone number: " + getPhoneNumber());
         System.out.println("Games: ");
         for (Game game : ownedGames) {
             System.out.println(gameCounter + ". " + game.getName());
+            gameCounter++;
         }
         System.out.println("Press anything to go back.");
         getString();

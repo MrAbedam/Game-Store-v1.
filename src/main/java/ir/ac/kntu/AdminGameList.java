@@ -12,26 +12,36 @@ import static ir.ac.kntu.Get.getDouble;
 public class AdminGameList {
     static ArrayList<Game> listOfGames = new ArrayList<>();
 
-    public static ArrayList<Game> findGameByName(String gameName){
+    public static ArrayList<Game> findGameByName(String gameName) {
         ArrayList<Game> filteredGames = new ArrayList<>();
-        for(Game foundGame : listOfGames) {
-            if(foundGame.getName().equals(gameName)) {
+        for (Game foundGame : listOfGames) {
+            if (foundGame.getName().equals(gameName)) {
                 filteredGames.add(foundGame);
             }
         }
-    return filteredGames;
+        return filteredGames;
     }
 
     public AdminGameList(ArrayList<Game> listOfGames) {
         this.listOfGames = listOfGames;
     }
 
-    public static void removeGame(Game game){
+    public static void removeGame(Game game) {
+        for (User testUser : UserMainPage.allUsers) {
+            if (!testUser.ownedGames.isEmpty()) {
+                for (Game testGame : testUser.ownedGames) {
+                    if (testGame == game) {
+                        testUser.ownedGames.remove(game);
+                        break;
+                    }
+                }
+            }
+        }
         listOfGames.remove(game);
         System.out.println("Game removed!");
     }
 
-    public static void adminGameListMenu(){
+    public static void adminGameListMenu() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Admins gameList page.");
         System.out.println("1.Add a game.");
@@ -41,17 +51,17 @@ public class AdminGameList {
         System.out.println("5.Return.");
         makeHashie();
         String ans = getString();
-        switch (ans){
-            case "1":{
+        switch (ans) {
+            case "1": {
                 makeGame();
                 adminGameListMenu();
                 break;
             }
-            case "2":{
+            case "2": {
                 System.out.println("Enter game's name.");
                 String filterName = getString();
                 ArrayList<Game> filteredList = findGameByName(filterName);
-                if(filteredList.isEmpty()){
+                if (filteredList.isEmpty()) {
                     System.out.println("No Games Matched. Enter anything to return to Admins gameList.");
                     String tmp = getString();
                     makeHashie();
@@ -60,16 +70,16 @@ public class AdminGameList {
                     System.out.println("Choose a game between the filtered games:");
                     showGivenListOfGames(filteredList);
                     int gameChoice = getInt();
-                    Game chosenGame = filteredList.get(gameChoice-1);
+                    Game chosenGame = filteredList.get(gameChoice - 1);
                     changeGameDetail(chosenGame);
                 }
                 break;
             }
-            case "3":{
+            case "3": {
                 System.out.println("Enter game's name.");
                 String filterName = getString();
                 ArrayList<Game> filteredList = findGameByName(filterName);
-                if(filteredList.isEmpty()){
+                if (filteredList.isEmpty()) {
                     System.out.println("No Games Matched. Enter anything to return to Admins gameList.");
                     String tmp = getString();
                     makeHashie();
@@ -78,13 +88,13 @@ public class AdminGameList {
                     System.out.println("Choose a game between the filtered games:");
                     showGivenListOfGames(filteredList);
                     int gameChoice = getInt();
-                    Game chosenGame = filteredList.get((gameChoice-1)%filteredList.size());
+                    Game chosenGame = filteredList.get((gameChoice - 1) % filteredList.size());
                     removeGame(chosenGame);
                     adminGameListMenu();
                 }
                 break;
             }
-            case "4":{
+            case "4": {
                 showGivenListOfGames(listOfGames);
                 System.out.println("Enter anything to return to Admins gameList.");
                 String tmp = getString();
@@ -92,17 +102,18 @@ public class AdminGameList {
                 adminGameListMenu();
                 break;
             }
-            case "5":{
+            case "5": {
                 AdminMainPage.displayAdminPage();
             }
-            default:{
+            default: {
                 System.out.println("Wrong input, redirecting to start of page.");
                 adminGameListMenu();
                 break;
             }
         }
     }
-    public static void changeGameDetail(Game game){
+
+    public static void changeGameDetail(Game game) {
         System.out.println("Which detail do you want to change?");
         System.out.println("1.Name");
         System.out.println("2.Description");
@@ -111,9 +122,9 @@ public class AdminGameList {
         System.out.println("5.Return");
         makeHashie();
         int detailNumber = getInt();
-        switch(detailNumber){
-            case 1:{
-                System.out.println("Current name: "+game.getName());
+        switch (detailNumber) {
+            case 1: {
+                System.out.println("Current name: " + game.getName());
                 System.out.println("Enter new name:");
                 String newName = getString();
                 game.setName(newName);
@@ -122,8 +133,8 @@ public class AdminGameList {
                 changeGameDetail(game);
                 break;
             }
-            case 2:{
-                System.out.println("Current description: "+game.getDescription());
+            case 2: {
+                System.out.println("Current description: " + game.getDescription());
                 System.out.println("Enter new description:");
                 String newDescription = getString();
                 game.setDescription(newDescription);
@@ -132,8 +143,8 @@ public class AdminGameList {
                 changeGameDetail(game);
                 break;
             }
-            case 3:{
-                System.out.println("Current genre: "+game.getGenre());
+            case 3: {
+                System.out.println("Current genre: " + game.getGenre());
                 System.out.println("Enter new genre:");
                 String newGenre = getString();
                 game.setGenre(newGenre);
@@ -142,8 +153,8 @@ public class AdminGameList {
                 changeGameDetail(game);
                 break;
             }
-            case 4:{
-                System.out.println("Current price: "+game.getPrice());
+            case 4: {
+                System.out.println("Current price: " + game.getPrice());
                 System.out.println("Enter new price:");
                 double newPrice = getDouble();
                 game.setPrice(newPrice);
@@ -152,18 +163,19 @@ public class AdminGameList {
                 changeGameDetail(game);
                 break;
             }
-            case 5:{
+            case 5: {
                 adminGameListMenu();
                 break;
             }
-            default:{
+            default: {
                 System.out.println("Wrong input, redirecting to start of page.");
                 changeGameDetail(game);
                 break;
             }
         }
     }
-    public static void makeGame(){
+
+    public static void makeGame() {
         System.out.println("Enter game's name:");
         String gameName = getString();
         System.out.println("Enter game's description");
@@ -172,19 +184,20 @@ public class AdminGameList {
         String gameGenre = getString();
         System.out.println("Enter game's price");
         double gamePrice = getDouble();
-        Game newGame = new Game(gameName,gameDescription,gameGenre,gamePrice);
+        Game newGame = new Game(gameName, gameDescription, gameGenre, gamePrice);
         addGame(newGame);
         System.out.println("Game added!");
         makeHashie();
     }
-    public static void addGame(Game game){
+
+    public static void addGame(Game game) {
         listOfGames.add(game);
     }
 
-    public static void showGivenListOfGames(ArrayList<Game> listOfGivenGames){
+    public static void showGivenListOfGames(ArrayList<Game> listOfGivenGames) {
         int gameCounter = 1;
-        for(Game game : listOfGivenGames){
-            System.out.println(gameCounter+". "+game.name+" => "+game.price);
+        for (Game game : listOfGivenGames) {
+            System.out.println(gameCounter + ". " + game.name + " => " + game.price + "$");
             gameCounter++;
         }
     }

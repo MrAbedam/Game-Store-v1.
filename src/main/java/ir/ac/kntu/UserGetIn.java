@@ -67,10 +67,8 @@ public class UserGetIn {
         String email = getString();
         System.out.println("Enter phone number:");
         String phoneNumber = getString();
-        System.out.println("Enter wallet money:");
-        double money = getDouble();
         ArrayList<Game> gameList = new ArrayList<>();
-        User newUser = new User(username, password, email,phoneNumber,gameList,money);
+        User newUser = new User(username, password, email,phoneNumber,gameList);
         allUsers.add(newUser);
         System.out.println("User added");
         StoreProgram.userChoices();

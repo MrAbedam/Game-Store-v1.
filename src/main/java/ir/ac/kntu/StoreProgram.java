@@ -134,7 +134,7 @@ public class StoreProgram {
                 0.0);
         ArrayList<Game> user1Games = new ArrayList<>();
         user1Games.add(game1);
-        User user1 = new User("mmd","12345678Aa","mmd@gmail.com","09363340618",user1Games,400.00);
+        User user1 = new User("mmd","12345678Aa","mmd@gmail.com","09363340618",user1Games);
         allUsers.add(user1);
         AdminGameList.addGame(game1);
         AdminGameList.addGame(game2);
