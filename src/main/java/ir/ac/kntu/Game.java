@@ -1,5 +1,8 @@
 package ir.ac.kntu;
 
+import static ir.ac.kntu.Get.*;
+import static ir.ac.kntu.StoreProgram.makeHashie;
+
 public class Game {
     String name;
     String description;
@@ -62,5 +65,67 @@ public class Game {
         this.price = price;
         this.avgRate = 0;
         this.numberOfRates = 0;
+    }
+
+    public void changeGameDetail() {
+        System.out.println("Which detail do you want to change?");
+        System.out.println("1.Name");
+        System.out.println("2.Description");
+        System.out.println("3.Genre");
+        System.out.println("4.Price");
+        System.out.println("5.Return");
+        makeHashie();
+        int detailNumber = getInt();
+        switch (detailNumber) {
+            case 1: {
+                System.out.println("Current name: " + this.getName());
+                System.out.println("Enter new name:");
+                String newName = getString();
+                this.setName(newName);
+                System.out.println("Name changed!");
+                makeHashie();
+                this.changeGameDetail();
+                break;
+            }
+            case 2: {
+                System.out.println("Current description: " + this.getDescription());
+                System.out.println("Enter new description:");
+                String newDescription = getString();
+                this.setDescription(newDescription);
+                System.out.println("Description changed!");
+                makeHashie();
+                this.changeGameDetail();
+                break;
+            }
+            case 3: {
+                System.out.println("Current genre: " + this.getGenre());
+                System.out.println("Enter new genre:");
+                String newGenre = getString();
+                this.setGenre(newGenre);
+                System.out.println("Genre changed!");
+                makeHashie();
+                this.changeGameDetail();
+                break;
+            }
+            case 4: {
+                System.out.println("Current price: " + this.getPrice());
+                System.out.println("Enter new price:");
+                double newPrice = getDouble();
+                this.setPrice(newPrice);
+                System.out.println("Price changed!");
+                makeHashie();
+                this.changeGameDetail();
+                break;
+            }
+            case 5: {
+                AdminGameList.adminGameListMenu();
+                break;
+            }
+            default: {
+                System.out.println("Wrong input, redirecting to start of page.");
+                this.changeGameDetail();
+                break;
+            }
+        }
     }
 }

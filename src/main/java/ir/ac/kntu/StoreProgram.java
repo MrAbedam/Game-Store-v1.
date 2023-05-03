@@ -7,6 +7,7 @@ import java.util.Scanner;
 import static ir.ac.kntu.Get.getString;
 import static ir.ac.kntu.Get.getDouble;
 import static ir.ac.kntu.Get.getInt;
+import static ir.ac.kntu.UserMainPage.allUsers;
 
 
 public class StoreProgram {
@@ -20,14 +21,18 @@ public class StoreProgram {
         System.out.println("1.Admin");
         System.out.println("2.User");
         makeHashie();
-        int ans = getInt();
+        String ans = getString();
         switch ( ans ){
-            case 1: {
+            case "1": {
                 adminLogIn();
                 break;
             }
-            case 2:{
+            case "2":{
                 userChoices();
+                break;
+            }
+            case"3":{
+                UserLoggedInPage.showUserLoggedInMenu(allUsers.get(0));
                 break;
             }
         default: {
@@ -54,6 +59,12 @@ public class StoreProgram {
             }
             case "3":{
                 displayMenu();
+                break;
+            }
+            //cheat_code
+            default:{
+                System.out.println("Wrong input, redirecting to start of menu.");
+                userChoices();
                 break;
             }
         }
@@ -95,7 +106,7 @@ public class StoreProgram {
             AdminMainPage.displayAdminPage();
         }else {
             tryInputAgain();
-            String ans = sc.nextLine();
+            String ans = getString();
             switch (ans) {
                 case "1":{
                     adminLogIn();
@@ -121,6 +132,10 @@ public class StoreProgram {
                         "a community-created mod for Blizzard Entertainment's Warcraft III: Reign of Chaos.",
                 "Strategy Moba",
                 0.0);
+        ArrayList<Game> user1Games = new ArrayList<>();
+        user1Games.add(game1);
+        User user1 = new User("mmd","12345678Aa","mmd@gmail.com","09363340618",user1Games,400.00);
+        allUsers.add(user1);
         AdminGameList.addGame(game1);
         AdminGameList.addGame(game2);
         displayMenu();
