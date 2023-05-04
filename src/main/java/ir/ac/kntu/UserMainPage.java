@@ -38,7 +38,7 @@ public class UserMainPage {
 
     public static boolean isPasswordValid(String input) {
         // Check if String is more than 7 characters
-        if (input.length() <= 8) {
+        if (input.length() < 8) {
             return false;
         }
 

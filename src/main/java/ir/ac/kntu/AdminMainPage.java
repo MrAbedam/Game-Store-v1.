@@ -1,24 +1,17 @@
 package ir.ac.kntu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static ir.ac.kntu.Get.getString;
 import static ir.ac.kntu.Get.getDouble;
 import static ir.ac.kntu.Get.getInt;
 import static ir.ac.kntu.StoreProgram.makeHashie;
+import static ir.ac.kntu.UserMainPage.*;
 
 
 public class AdminMainPage {
 
-    public static void adminUserList(){
-        System.out.println("1.Show a user's details.");
-        System.out.println("2.Add a user.");
-        System.out.println("3.Change a user's details.");
-        System.out.println("4.Remove a user.");
-        System.out.println("5.Return");
-        String ans = getString();
-
-    }
 
     public static void displayAdminPage(){
         System.out.println("1.Games");
@@ -33,7 +26,7 @@ public class AdminMainPage {
                 break;
             }
             case "2":{
-                adminUserList();
+                AdminUserList.adminUserListMenu();
                 break;
             }
             case "3":{

@@ -15,6 +15,7 @@ public class ProfileOption {
         switch (ans){
             case "1":{
                 user.showDetails();
+                profileChoices(user);
                 break;
             }
             case "2":{

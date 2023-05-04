@@ -153,6 +153,8 @@ public class StoreProgram {
 
         User user1 = new User("mmd", "12345678Aa", "mmd@gmail.com", "09363340618", user1Games);
         allUsers.add(user1);
+        User user2 = new User("eli", "12345678Aa", "eli@gmail.com", "0990", user1Games);
+        allUsers.add(user2);
         AdminGameList.addGame(game1);
         AdminGameList.addGame(game2);
         AdminGameList.addGame(game3);
