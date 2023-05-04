@@ -1,5 +1,8 @@
 package ir.ac.kntu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import static ir.ac.kntu.Get.*;
 import static ir.ac.kntu.StoreProgram.makeHashie;
 
@@ -9,7 +12,21 @@ public class Game {
     String genre;
     double price;
     double avgRate;
-    int numberOfRates;
+    HashMap<User, Double> rateUser = new HashMap<>();
+
+    public void addRate(User user, double rate){
+        this.rateUser.put(user,rate);
+    }
+
+    public void updateRate(){
+        double sum = 0;
+        int numberOfUsers = 0;
+        for( double testRate : this.rateUser.values() ){
+            sum +=testRate;
+            numberOfUsers++;
+        }
+        this.setAvgRate(sum/numberOfUsers);
+    }
 
     public String getName() {
         return name;
@@ -47,15 +64,8 @@ public class Game {
         return avgRate;
     }
 
-    public double addRate(double newRate){
-        numberOfRates++;
-        this.avgRate = (this.avgRate * numberOfRates + newRate)/numberOfRates;
-        return avgRate;
-    }
-
     public void setAvgRate(double avgRate) {
         this.avgRate = avgRate;
-        numberOfRates = 1;
     }
 
     public Game(String name, String description, String genre, double price) {
@@ -64,7 +74,6 @@ public class Game {
         this.genre = genre;
         this.price = price;
         this.avgRate = 0;
-        this.numberOfRates = 0;
     }
 
     public void changeGameDetail() {
@@ -125,6 +134,37 @@ public class Game {
                 System.out.println("Wrong input, redirecting to start of page.");
                 this.changeGameDetail();
                 break;
+            }
+        }
+    }
+    public void showGameDetails(User user){
+        System.out.println("Here are the details of the mentioned game:");
+        System.out.println("Game name: "+ this.getName());
+        System.out.println("Game description: "+ this.getDescription());
+        System.out.println("Game genre: "+this.getGenre());
+        System.out.println("Game price: "+this.getPrice() +"$");
+        if(user.doesUserOwn(this)){
+            System.out.println(Colors.green +"Owned"+ Colors.reset);
+            System.out.println("Press Anything to go back to Store menu.");
+            getString();
+            StoreOptions.storeMenu(user);
+        }else{
+            System.out.println(Colors.red +"Not owned"+Colors.reset);
+            System.out.println("Enter 'BUY' to buy this game, enter anything else to go back.");
+            String ans = getString();
+            ans = ans.toUpperCase();
+            switch (ans){
+                case "BUY":{
+                    boolean didBuy = user.buyGame(this);
+                    System.out.println("Press Anything to go back to Store menu.");
+                    getString();
+                    StoreOptions.storeMenu(user);
+                    break;
+                }
+                default:{
+                    StoreOptions.storeMenu(user);
+                    break;
+                }
             }
         }
     }

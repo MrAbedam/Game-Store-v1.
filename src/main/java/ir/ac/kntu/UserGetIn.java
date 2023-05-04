@@ -25,6 +25,7 @@ public class UserGetIn {
             StoreProgram.userChoices();
         } else {
             System.out.println("Logged in successfully!");
+            UserLoggedInPage.showUserLoggedInMenu(testUser);
         }
     }
 
@@ -71,6 +72,6 @@ public class UserGetIn {
         User newUser = new User(username, password, email,phoneNumber,gameList);
         allUsers.add(newUser);
         System.out.println("User added");
-        StoreProgram.userChoices();
+        UserLoggedInPage.showUserLoggedInMenu(newUser);
     }
 }

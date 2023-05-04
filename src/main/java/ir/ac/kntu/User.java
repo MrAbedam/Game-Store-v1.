@@ -85,14 +85,36 @@ public class User {
         System.out.println("Email: " + getEmail());
         System.out.println("Wallet: " + getWallet() + "$");
         System.out.println("Phone number: " + getPhoneNumber());
-        System.out.println("Games: ");
-        for (Game game : ownedGames) {
-            System.out.println(gameCounter + ". " + game.getName());
-            gameCounter++;
-        }
+        StoreOptions.showStoreGames(ownedGames,this);
         System.out.println("Press anything to go back.");
         getString();
         ProfileOption.profileChoices(this);
+    }
+
+    public boolean doesUserOwn (Game game){
+        for(Game testGame : ownedGames ){
+            if (game == testGame){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean buyGame (Game game){
+        if (this.doesUserOwn(game)){
+            System.out.println("You already own this game!");
+            return false;
+        }
+        else if( this.getWallet() >= game.price ){
+            this.setWallet(this.getWallet() - game.price);
+            System.out.println(game.getName()+" has been added to your games.");
+            ownedGames.add(game);
+            return true;
+        }
+        else {
+            System.out.println("Not enough balance in your account.");
+            return false;
+        }
     }
 
     public void changeUserDetails() {

@@ -2,11 +2,13 @@ package ir.ac.kntu;
 
 import java.util.Scanner;
 
+import static ir.ac.kntu.Get.getString;
+import static ir.ac.kntu.Get.getDouble;
+import static ir.ac.kntu.Get.getInt;
 import static ir.ac.kntu.StoreProgram.makeHashie;
 
 
 public class AdminMainPage {
-
 
     public static void adminUserList(){
         System.out.println("1.Show a user's details.");
@@ -14,8 +16,8 @@ public class AdminMainPage {
         System.out.println("3.Change a user's details.");
         System.out.println("4.Remove a user.");
         System.out.println("5.Return");
-        Scanner sc = new Scanner(System.in);
-        String ans = sc.nextLine();
+        String ans = getString();
+
     }
 
     public static void displayAdminPage(){

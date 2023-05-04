@@ -20,7 +20,7 @@ public class UserLoggedInPage {
                 break;
             }
             case "2": {
-                System.out.println("Store");
+                StoreOptions.storeMenu(user);
                 break;
             }
             case "3": {

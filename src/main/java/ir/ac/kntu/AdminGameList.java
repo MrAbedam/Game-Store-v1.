@@ -26,6 +26,7 @@ public class AdminGameList {
         this.listOfGames = listOfGames;
     }
 
+    //note: fix this >
     public static void removeGame(Game game) {
         for (User testUser : UserMainPage.allUsers) {
             if (!testUser.ownedGames.isEmpty()) {
@@ -70,6 +71,10 @@ public class AdminGameList {
                     System.out.println("Choose a game between the filtered games:");
                     showGivenListOfGames(filteredList);
                     int gameChoice = getInt();
+                    while (gameChoice > filteredList.size() || gameChoice < 1) {
+                        System.out.println("Wrong input, try again:");
+                        gameChoice = getInt();
+                    }
                     Game chosenGame = filteredList.get(gameChoice - 1);
                     changeGameDetail(chosenGame);
                 }
@@ -104,6 +109,7 @@ public class AdminGameList {
             }
             case "5": {
                 AdminMainPage.displayAdminPage();
+                break;
             }
             default: {
                 System.out.println("Wrong input, redirecting to start of page.");
