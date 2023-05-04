@@ -11,16 +11,16 @@ import static ir.ac.kntu.UserMainPage.*;
 public class UserGetIn {
 
 
-    public static void userLogin(){
+    public static void userLogin() {
         System.out.println("Enter username:");
         String newUserName = getString();
         System.out.println("Enter password:");
         String newPassword = getString();
         User testUser = findUser(newUserName);
-        if (testUser == null){
+        if (testUser == null) {
             System.out.println("No user matched try again.");
             StoreProgram.userChoices();
-        } else if (!UserMainPage.checkUserPass(testUser,newPassword)) {
+        } else if (!UserMainPage.checkUserPass(testUser, newPassword)) {
             System.out.println("Wrong password or username try again");
             StoreProgram.userChoices();
         } else {
@@ -69,7 +69,7 @@ public class UserGetIn {
         System.out.println("Enter phone number:");
         String phoneNumber = getString();
         ArrayList<Game> gameList = new ArrayList<>();
-        User newUser = new User(username, password, email,phoneNumber,gameList);
+        User newUser = new User(username, password, email, phoneNumber, gameList);
         allUsers.add(newUser);
         System.out.println("User added");
         UserLoggedInPage.showUserLoggedInMenu(newUser);

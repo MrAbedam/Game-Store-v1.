@@ -16,21 +16,21 @@ public class UserMainPage {
         return false;
     }
 
-    public static void addUser(User user){
+    public static void addUser(User user) {
         allUsers.add(user);
     }
 
-    public static User findUser(String userName){
-        for (User newUser : allUsers){
-            if (newUser.userName.equals(userName)){
+    public static User findUser(String userName) {
+        for (User newUser : allUsers) {
+            if (newUser.userName.equals(userName)) {
                 return newUser;
             }
         }
         return null;
     }
 
-    public static boolean checkUserPass(User user, String passWord){
-        if (user.passWord.equals(passWord)){
+    public static boolean checkUserPass(User user, String passWord) {
+        if (user.passWord.equals(passWord)) {
             return true;
         }
         return false;

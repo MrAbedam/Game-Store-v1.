@@ -42,15 +42,39 @@ public class AdminGameList {
         System.out.println("Game removed!");
     }
 
-    public static void adminGameListMenu() {
-        Scanner sc = new Scanner(System.in);
+    public static void adminGameChangeDetails() {
+        System.out.println("Enter game's name.");
+        String filterName = getString();
+        ArrayList<Game> filteredList = findGameByName(filterName);
+        if (filteredList.isEmpty()) {
+            System.out.println("No Games Matched. Enter anything to return to Admins gameList.");
+            String tmp = getString();
+            makeHashie();
+            adminGameListMenu();
+        } else {
+            System.out.println("Choose a game between the filtered games:");
+            showGivenListOfGames(filteredList);
+            int gameChoice = getInt();
+            while (gameChoice > filteredList.size() || gameChoice < 1) {
+                System.out.println("Wrong input, try again:");
+                gameChoice = getInt();
+            }
+            Game chosenGame = filteredList.get(gameChoice - 1);
+            changeGameDetail(chosenGame);
+        }
+    }
+
+    public static void adminGameListMenuOptions() {
         System.out.println("Admins gameList page.");
         System.out.println("1.Add a game.");
         System.out.println("2.Change a game's details.");
         System.out.println("3.Remove a game.");
         System.out.println("4.Show all of games.");
         System.out.println("5.Return.");
-        makeHashie();
+    }
+
+    public static void adminGameListMenu() {
+        adminGameListMenuOptions();
         String ans = getString();
         switch (ans) {
             case "1": {
@@ -59,25 +83,7 @@ public class AdminGameList {
                 break;
             }
             case "2": {
-                System.out.println("Enter game's name.");
-                String filterName = getString();
-                ArrayList<Game> filteredList = findGameByName(filterName);
-                if (filteredList.isEmpty()) {
-                    System.out.println("No Games Matched. Enter anything to return to Admins gameList.");
-                    String tmp = getString();
-                    makeHashie();
-                    adminGameListMenu();
-                } else {
-                    System.out.println("Choose a game between the filtered games:");
-                    showGivenListOfGames(filteredList);
-                    int gameChoice = getInt();
-                    while (gameChoice > filteredList.size() || gameChoice < 1) {
-                        System.out.println("Wrong input, try again:");
-                        gameChoice = getInt();
-                    }
-                    Game chosenGame = filteredList.get(gameChoice - 1);
-                    changeGameDetail(chosenGame);
-                }
+                adminGameChangeDetails();
                 break;
             }
             case "3": {
@@ -86,8 +92,7 @@ public class AdminGameList {
                 ArrayList<Game> filteredList = findGameByName(filterName);
                 if (filteredList.isEmpty()) {
                     System.out.println("No Games Matched. Enter anything to return to Admins gameList.");
-                    String tmp = getString();
-                    makeHashie();
+                    getString();
                     adminGameListMenu();
                 } else {
                     System.out.println("Choose a game between the filtered games:");
@@ -119,7 +124,7 @@ public class AdminGameList {
         }
     }
 
-    public static void changeGameDetail(Game game) {
+    public static void changeGameDetailOptions() {
         System.out.println("Which detail do you want to change?");
         System.out.println("1.Name");
         System.out.println("2.Description");
@@ -127,15 +132,23 @@ public class AdminGameList {
         System.out.println("4.Price");
         System.out.println("5.Return");
         makeHashie();
+    }
+
+    public static void changeGameDetailName(Game game) {
+        System.out.println("Current name: " + game.getName());
+        System.out.println("Enter new name:");
+        String newName = getString();
+        game.setName(newName);
+        System.out.println("Name changed!");
+        makeHashie();
+    }
+
+    public static void changeGameDetail(Game game) {
+        changeGameDetailOptions();
         int detailNumber = getInt();
         switch (detailNumber) {
             case 1: {
-                System.out.println("Current name: " + game.getName());
-                System.out.println("Enter new name:");
-                String newName = getString();
-                game.setName(newName);
-                System.out.println("Name changed!");
-                makeHashie();
+                changeGameDetailName(game);
                 changeGameDetail(game);
                 break;
             }

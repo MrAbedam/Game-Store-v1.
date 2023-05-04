@@ -63,8 +63,8 @@ public class AdminUserList {
                 break;
             }
             default: {
-                System.out.println("Wrong input, redirecting to start of page.");
-                findUserBasedOn();
+                System.out.println("Wrong input, redirecting to previous page.");
+                adminUserListMenu();
                 break;
             }
         }
@@ -93,13 +93,23 @@ public class AdminUserList {
         return (userList.get(ans - 1));
     }
 
-    public static void adminUserListMenu() {
+    public static String adminUserListMenuOptions(){
         System.out.println("1.Show a user's details.");
         System.out.println("2.Change a user's details.");
         System.out.println("3.Add a user.");
         System.out.println("4.Remove a user.");
         System.out.println("5.Return");
         String ans = getString();
+        return ans;
+    }
+
+    public static void adminUserRemove(User user){
+        allUsers.remove(user);
+        System.out.println("User removed.");
+        adminUserListMenu();
+    }
+
+    public static void adminUserOptionSwitch(String ans){
         User user;
         switch (ans) {
             case "1": {
@@ -120,7 +130,6 @@ public class AdminUserList {
                     break;
                 } else {
                     user.changeUserDetailsAsAdmin();
-                    adminUserListMenu();
                 }
                 break;
             }
@@ -135,8 +144,7 @@ public class AdminUserList {
                     adminUserListMenu();
                     break;
                 } else {
-                    allUsers.remove(user);
-                    adminUserListMenu();
+                    adminUserRemove(user);
                 }
                 break;
             }
@@ -149,8 +157,12 @@ public class AdminUserList {
                 adminUserListMenu();
                 break;
             }
-
         }
+    }
+
+    public static void adminUserListMenu() {
+        String ans = adminUserListMenuOptions();
+        adminUserOptionSwitch(ans);
     }
 
     public static void addUser() {

@@ -77,28 +77,28 @@ public class StoreProgram {
     }
 
     private static void adminLogIn() {
-        Scanner sc = new Scanner(System.in);
         Admin admin = new Admin("aaa", "123");
         System.out.println("Enter username:");
-        String enteredUser = sc.nextLine();
+        String enteredUser = getString();
         if (admin.username.equals(enteredUser)) {
-            makeHashie();
             System.out.println("Enter password");
-            String enteredPass = sc.nextLine();
-            makeHashie();
+            String enteredPass = getString();
             while (!admin.password.equals(enteredPass)) {
                 tryInputAgain();
-                String ans = sc.nextLine();
+                String ans = getString();
                 switch (ans) {
                     case "1": {
                         System.out.println("Enter password");
-                        enteredPass = sc.nextLine();
-                        makeHashie();
+                        enteredPass = getString();
                         break;
                     }
                     case "2": {
                         displayMenu();
                         break;
+                    }
+                    default:{
+                        System.out.println("Wrong input, redirecting to start of page");
+                        adminLogIn();
                     }
                 }
             }
@@ -116,10 +116,11 @@ public class StoreProgram {
                     displayMenu();
                     break;
                 }
+                default:{
+                    adminLogIn();
+                }
             }
         }
-
-
     }
 
     public static void main(String[] args) {

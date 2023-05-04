@@ -7,25 +7,31 @@ import static ir.ac.kntu.Get.*;
 import static ir.ac.kntu.StoreProgram.makeHashie;
 
 public class Game {
+
     String name;
+
     String description;
+
     String genre;
+
     double price;
+
     double avgRate;
+
     HashMap<User, Double> rateUser = new HashMap<>();
 
-    public void addRate(User user, double rate){
-        this.rateUser.put(user,rate);
+    public void addRate(User user, double rate) {
+        this.rateUser.put(user, rate);
     }
 
-    public void updateRate(){
+    public void updateRate() {
         double sum = 0;
         int numberOfUsers = 0;
-        for( double testRate : this.rateUser.values() ){
-            sum +=testRate;
+        for (double testRate : this.rateUser.values()) {
+            sum += testRate;
             numberOfUsers++;
         }
-        this.setAvgRate(sum/numberOfUsers);
+        this.setAvgRate(sum / numberOfUsers);
     }
 
     public String getName() {
@@ -76,7 +82,7 @@ public class Game {
         this.avgRate = 0;
     }
 
-    public void changeGameDetail() {
+    public void changeGameDetailOptions(){
         System.out.println("Which detail do you want to change?");
         System.out.println("1.Name");
         System.out.println("2.Description");
@@ -84,16 +90,24 @@ public class Game {
         System.out.println("4.Price");
         System.out.println("5.Return");
         makeHashie();
+    }
+
+    public void changeGameName(){
+        System.out.println("Current name: " + this.getName());
+        System.out.println("Enter new name:");
+        String newName = getString();
+        this.setName(newName);
+        System.out.println("Name changed!");
+        makeHashie();
+        this.changeGameDetail();
+    }
+
+    public void changeGameDetail() {
+        changeGameDetailOptions();
         int detailNumber = getInt();
         switch (detailNumber) {
             case 1: {
-                System.out.println("Current name: " + this.getName());
-                System.out.println("Enter new name:");
-                String newName = getString();
-                this.setName(newName);
-                System.out.println("Name changed!");
-                makeHashie();
-                this.changeGameDetail();
+                changeGameName();
                 break;
             }
             case 2: {
@@ -137,31 +151,32 @@ public class Game {
             }
         }
     }
-    public void showGameDetails(User user){
+
+    public void showGameDetails(User user) {
         System.out.println("Here are the details of the mentioned game:");
-        System.out.println("Game name: "+ this.getName());
-        System.out.println("Game description: "+ this.getDescription());
-        System.out.println("Game genre: "+this.getGenre());
-        System.out.println("Game price: "+this.getPrice() +"$");
-        if(user.doesUserOwn(this)){
-            System.out.println(Colors.green +"Owned"+ Colors.reset);
+        System.out.println("Game name: " + this.getName());
+        System.out.println("Game description: " + this.getDescription());
+        System.out.println("Game genre: " + this.getGenre());
+        System.out.println("Game price: " + this.getPrice() + "$");
+        if (user.doesUserOwn(this)) {
+            System.out.println(Colors.green + "Owned" + Colors.reset);
             System.out.println("Press Anything to go back to Store menu.");
             getString();
             StoreOptions.storeMenu(user);
-        }else{
-            System.out.println(Colors.red +"Not owned"+Colors.reset);
+        } else {
+            System.out.println(Colors.red + "Not owned" + Colors.reset);
             System.out.println("Enter 'BUY' to buy this game, enter anything else to go back.");
             String ans = getString();
             ans = ans.toUpperCase();
-            switch (ans){
-                case "BUY":{
+            switch (ans) {
+                case "BUY": {
                     boolean didBuy = user.buyGame(this);
                     System.out.println("Press Anything to go back to Store menu.");
                     getString();
                     StoreOptions.storeMenu(user);
                     break;
                 }
-                default:{
+                default: {
                     StoreOptions.storeMenu(user);
                     break;
                 }
