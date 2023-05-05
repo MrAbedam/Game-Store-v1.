@@ -2,6 +2,7 @@ package ir.ac.kntu;
 
 import java.util.ArrayList;
 
+import static ir.ac.kntu.FriendOptions.removeUsersFromRequests;
 import static ir.ac.kntu.Get.*;
 import static ir.ac.kntu.StoreProgram.makeHashie;
 import static ir.ac.kntu.UserMainPage.isPasswordValid;
@@ -347,6 +348,15 @@ public class User {
     }
 
     public void sendRequest(User newUser){
+        if(this.receivedRequests.contains(newUser)){
+            System.out.println("This user had already sent you a friend request.");
+            System.out.println("You guys are now friends!");
+            removeUsersFromRequests(newUser,this);
+            removeUsersFromRequests(this,newUser);
+            newUser.friends.add(this);
+            this.friends.add(newUser);
+            return;
+        }
         if(!areFriends(newUser) && !requestPending(newUser)){
             System.out.println("Request sent to "+newUser.getUserName());
             this.sentRequests.add(newUser);
