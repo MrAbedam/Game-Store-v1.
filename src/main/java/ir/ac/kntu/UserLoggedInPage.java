@@ -28,7 +28,7 @@ public class UserLoggedInPage {
                 break;
             }
             case "4": {
-                System.out.println("Friends");
+                FriendOptions.friendOpt(user);
                 break;
             }
             case "5": {

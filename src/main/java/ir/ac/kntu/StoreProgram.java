@@ -35,6 +35,10 @@ public class StoreProgram {
                 UserLoggedInPage.showUserLoggedInMenu(allUsers.get(0));
                 break;
             }
+            case "4": {
+                UserLoggedInPage.showUserLoggedInMenu(allUsers.get(1));
+                break;
+            }
             default: {
                 System.out.println("Wrong input, redirecting to start of page.");
                 displayMenu();

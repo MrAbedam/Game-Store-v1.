@@ -28,6 +28,12 @@ public class User {
 
     ArrayList<Game> ownedGames;
 
+    ArrayList<User> friends = new ArrayList<>();
+
+    ArrayList<User> sentRequests = new ArrayList<>();
+
+    ArrayList<User> receivedRequests = new ArrayList<>();
+
     double wallet;
 
     public String getUserName() {
@@ -76,6 +82,18 @@ public class User {
 
     public double getWallet() {
         return wallet;
+    }
+
+    public ArrayList<User> getFriends() {
+        return friends;
+    }
+
+    public ArrayList<User> getSentRequests() {
+        return sentRequests;
+    }
+
+    public ArrayList<User> getReceivedRequests() {
+        return receivedRequests;
     }
 
     public void showDetails() {
@@ -306,5 +324,68 @@ public class User {
         System.out.println("Email changed.");
         this.setEmail(newEmail);
         this.changeUserDetailsAsAdmin();
+    }
+
+    public boolean requestPending(User newUser){
+        for(User user : this.sentRequests){
+            if (user.getUserName().equals(newUser.userName)){
+                System.out.println("Request is already pending.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean areFriends(User newUser){
+        for(User user : this.friends){
+            if (user.getUserName().equals(newUser.userName)){
+                System.out.println(newUser.userName+" is already your friend.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void sendRequest(User newUser){
+        if(!areFriends(newUser) && !requestPending(newUser)){
+            System.out.println("Request sent to "+newUser.getUserName());
+            this.sentRequests.add(newUser);
+            newUser.receivedRequests.add(this);
+        }
+    }
+
+    public void showFriends(ArrayList<User> friends){
+        int friendCounter = 1;
+        for (User user: friends){
+            System.out.println(friendCounter+". "+user.getUserName());
+            friendCounter++;
+        }
+    }
+
+    public ArrayList<User> searchNameFriends(String searchName){
+        ArrayList<User> filteredList = new ArrayList<>();
+        for(User testUser : this.friends){
+            if(testUser.getUserName().startsWith(searchName)){
+                filteredList.add(testUser);
+            }
+        }
+        return(filteredList);
+    }
+
+    public void showGames(){
+        int gameCounter = 1;
+        for(Game game: this.ownedGames){
+            System.out.println(gameCounter+". "+game.getName());
+            gameCounter++;
+        }
+    }
+
+    public void showRequests(){
+        int requests = 1;
+        System.out.println("Choose a request to answer.");
+        for ( User testUser : receivedRequests){
+            System.out.println(requests+". "+testUser.getUserName() +" has sent you a friend request.");
+            requests++;
+        }
     }
 }

@@ -59,7 +59,7 @@ public class LibraryOptions {
                 break;
             }
             default:{
-                System.out.println("Redirecting to start of page.");
+                System.out.println("Wrong input, redirecting to start of page.");
                 communityOpt(game,user);
                 break;
             }
