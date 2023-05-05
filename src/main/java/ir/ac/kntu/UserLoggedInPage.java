@@ -24,7 +24,7 @@ public class UserLoggedInPage {
                 break;
             }
             case "3": {
-                System.out.println("Library");
+                LibraryOptions.libraryMenu(user);
                 break;
             }
             case "4": {

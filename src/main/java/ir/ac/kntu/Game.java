@@ -3,6 +3,7 @@ package ir.ac.kntu;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static ir.ac.kntu.Colors.*;
 import static ir.ac.kntu.Get.*;
 import static ir.ac.kntu.StoreProgram.makeHashie;
 
@@ -19,6 +20,19 @@ public class Game {
     double avgRate;
 
     HashMap<User, Double> rateUser = new HashMap<>();
+
+    ArrayList<String> reviews = new ArrayList<>();
+
+    public void addReview(String review, User user){
+        String finalReview = user.getUserName() + ": "+ review;
+        this.reviews.add(finalReview);
+    }
+
+    public void showReviews(){
+        for(String testReview : this.reviews){
+            System.out.println(blue + testReview + reset);
+        }
+    }
 
     public void addRate(User user, double rate) {
         this.rateUser.put(user, rate);
@@ -162,7 +176,6 @@ public class Game {
             System.out.println(Colors.green + "Owned" + Colors.reset);
             System.out.println("Press Anything to go back to Store menu.");
             getString();
-            StoreOptions.storeMenu(user);
         } else {
             System.out.println(Colors.red + "Not owned" + Colors.reset);
             System.out.println("Enter 'BUY' to buy this game, enter anything else to go back.");
@@ -173,13 +186,35 @@ public class Game {
                     boolean didBuy = user.buyGame(this);
                     System.out.println("Press Anything to go back to Store menu.");
                     getString();
-                    StoreOptions.storeMenu(user);
                     break;
                 }
                 default: {
                     StoreOptions.storeMenu(user);
                     break;
                 }
+            }
+        }
+    }
+
+    public void showLibraryGameDetails(User user) {
+        System.out.println("Here are the details of the mentioned game:");
+        System.out.println("Game name: " + this.getName());
+        System.out.println("Game description: " + this.getDescription());
+        System.out.println("Game genre: " + this.getGenre());
+        System.out.println("Game price: " + this.getPrice() + "$");
+        if (user.doesUserOwn(this)) {
+            System.out.println(Colors.green + "Owned" + Colors.reset);
+        }
+        System.out.println("Press Anything to go to community menu, or press 'q' to go back.");
+        String ans = getString();
+        switch (ans){
+            case "q":{
+                LibraryOptions.libraryMenu(user);
+                break;
+            }
+            default:{
+                LibraryOptions.gameCommunityAndRate(this,user);
+                break;
             }
         }
     }

@@ -34,6 +34,18 @@ public class StoreOptions {
         return maxRange;
     }
 
+    public static void searchForPriceCompressed(double minRange, double maxRange, User user){
+        ArrayList<Game> foundByPrice = searchByPrice(minRange, maxRange);
+        if (foundByPrice.isEmpty()) {
+            System.out.println("No games matched, try again.");
+            storeMenu(user);
+        } else {
+            Game chosenGame = chooseGame(foundByPrice, user);
+            chosenGame.showGameDetails(user);
+            storeMenu(user);
+        }
+    }
+
     public static void storeMenu(User user) {
         String ans = storeMenuList();
         switch (ans) {
@@ -44,6 +56,8 @@ public class StoreOptions {
                 } else {
                     Game chosenGame = chooseGame(AdminGameList.listOfGames, user);
                     chosenGame.showGameDetails(user);
+                    storeMenu(user);
+
                 }
                 break;
             }
@@ -57,20 +71,14 @@ public class StoreOptions {
                 } else {
                     Game chosenGame = chooseGame(foundByName, user);
                     chosenGame.showGameDetails(user);
+                    StoreOptions.storeMenu(user);
                 }
                 break;
             }
             case "3": {
                 double minRange = getMinPrice();
                 double maxRange = getMaxPrice();
-                ArrayList<Game> foundByPrice = searchByPrice(minRange, maxRange);
-                if (foundByPrice.isEmpty()) {
-                    System.out.println("No games matched, try again.");
-                    storeMenu(user);
-                } else {
-                    Game chosenGame = chooseGame(foundByPrice, user);
-                    chosenGame.showGameDetails(user);
-                }
+                searchForPriceCompressed(minRange,maxRange,user);
                 break;
             }
             case "4": {
@@ -79,13 +87,13 @@ public class StoreOptions {
 
             }
             default: {
-                redirectInStoreMenu(user);
+                redirectToStoreMenu(user);
                 break;
             }
         }
     }
 
-    public static void redirectInStoreMenu(User user) {
+    public static void redirectToStoreMenu(User user) {
         System.out.println("Wrong input redirecting to start of page.");
         storeMenu(user);
     }
