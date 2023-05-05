@@ -104,6 +104,9 @@ public class AdminUserList {
     }
 
     public static void adminUserRemove(User user){
+        for(User testUser: user.friends){
+            testUser.friends.remove(user);
+        }
         allUsers.remove(user);
         System.out.println("User removed.");
         adminUserListMenu();
