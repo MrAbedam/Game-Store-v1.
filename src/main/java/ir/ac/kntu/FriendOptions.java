@@ -98,8 +98,6 @@ public class FriendOptions {
             }
             case "2": {
                 friendSearch(user);
-                System.out.println("Enter anything to go back.");
-                getString();
                 friendOpt(user);
                 break;
             }

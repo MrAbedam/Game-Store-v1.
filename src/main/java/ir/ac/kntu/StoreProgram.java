@@ -100,7 +100,7 @@ public class StoreProgram {
                         displayMenu();
                         break;
                     }
-                    default:{
+                    default: {
                         System.out.println("Wrong input, redirecting to start of page");
                         adminLogIn();
                     }
@@ -120,7 +120,7 @@ public class StoreProgram {
                     displayMenu();
                     break;
                 }
-                default:{
+                default: {
                     adminLogIn();
                 }
             }
@@ -146,11 +146,6 @@ public class StoreProgram {
                 "dish dish",
                 "fps shooter",
                 199.99);
-        Game game5 = new Game("Dota",
-                "Dota  is a 2013 multiplayer online battle arena video game by Valve. The game is a sequel to Defense of the Ancients," +
-                        "a community-created mod for Blizzard Entertainment's Warcraft III: Reign of Chaos.",
-                "Strategy Moba",
-                1000.0);
         ArrayList<Game> user1Games = new ArrayList<>();
         user1Games.add(game2);
         user1Games.add(game3);
@@ -164,6 +159,7 @@ public class StoreProgram {
         AdminGameList.addGame(game2);
         AdminGameList.addGame(game3);
         AdminGameList.addGame(game4);
+
         displayMenu();
     }
 }
